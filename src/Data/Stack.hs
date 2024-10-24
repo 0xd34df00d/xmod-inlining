@@ -27,9 +27,9 @@ push a Stack{..} = do
              else theVec `VM.unsafeGrow` size
   VM.unsafeWrite vec' size a
   pure $ Stack vec' (size + 1)
+{-# INLINEABLE push #-}
 
 pop :: VM.Unbox a => Stack s a -> ST s (a, Stack s a)
 pop Stack{..} = do
   a <- VM.unsafeRead theVec (size - 1)
   pure (a, Stack theVec (size - 1))
-
