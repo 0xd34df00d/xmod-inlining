@@ -16,11 +16,15 @@ import Data.Stack
 isOpen :: Word8 -> Bool
 isOpen [c|(|] = True
 isOpen [c|[|] = True
+isOpen [c|<|] = True
+isOpen [c|{|] = True
 isOpen _ = False
 
 matches :: Word8 -> Word8 -> Bool
 matches [c|(|] [c|)|] = True
 matches [c|[|] [c|]|] = True
+matches [c|<|] [c|>|] = True
+matches [c|{|] [c|}|] = True
 matches _ _ = False
 
 checkBrackets :: BS.ByteString -> Bool
