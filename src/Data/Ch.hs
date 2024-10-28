@@ -3,10 +3,13 @@ module Data.Ch(c) where
 import Data.Char
 import Language.Haskell.TH
 import Language.Haskell.TH.Quote
+import Language.Haskell.TH.Syntax
 
 c :: QuasiQuoter
-c = QuasiQuoter { quotePat = q, quoteExp = unsupported, quoteType = unsupported, quoteDec = unsupported }
+c = QuasiQuoter { quotePat = qp, quoteExp = qe, quoteType = unsupported, quoteDec = unsupported }
   where
-  q [char] = pure $ LitP $ IntegerL $ fromIntegral $ ord char
-  q _ = fail "single char expected"
+  qp [char] = pure $ LitP $ IntegerL $ fromIntegral $ ord char
+  qp _ = fail "single char expected"
+  qe [char] = lift $ ord char
+  qe _ = fail "single char expected"
   unsupported = const $ error "unsupported context"
