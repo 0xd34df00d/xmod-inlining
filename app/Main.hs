@@ -12,6 +12,7 @@ import Data.Word
 
 import Data.Ch
 import Data.Stack
+import Data.Spec
 
 isOpen :: Word8 -> Bool
 isOpen [c|(|] = True
